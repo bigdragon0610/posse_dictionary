@@ -16,32 +16,26 @@ const Menu = ({ isOpen, setIsOpen, setContent }) => {
   const [canAddTheme, setCanAddTheme] = useState(false);
   const inputRef = useRef();
 
-  const addTheme = async (e) => {
-    if (
-      e.key === "Enter" &&
-      (e.metaKey || e.ctrlKey) &&
-      inputRef.current.value
-    ) {
-      const name = inputRef.current.value;
-      const created_at = Date.now();
-      const themesCollectionRef = collection(db, "themes");
-      const docRef = await addDoc(themesCollectionRef, {
-        name: name,
-        created_at: created_at,
-      });
-      setThemes((prevThemes) => {
-        return [
-          ...prevThemes,
-          {
-            name: name,
-            created_at: created_at,
-            id: docRef.id,
-          },
-        ];
-      });
-      inputRef.current.value = "";
-      setCanAddTheme(false);
-    }
+  const addTheme = async () => {
+    const name = inputRef.current.value;
+    const created_at = Date.now();
+    const themesCollectionRef = collection(db, "themes");
+    const docRef = await addDoc(themesCollectionRef, {
+      name: name,
+      created_at: created_at,
+    });
+    setThemes((prevThemes) => {
+      return [
+        ...prevThemes,
+        {
+          name: name,
+          created_at: created_at,
+          id: docRef.id,
+        },
+      ];
+    });
+    inputRef.current.value = "";
+    setCanAddTheme(false);
   };
 
   useEffect(() => {
@@ -73,16 +67,25 @@ const Menu = ({ isOpen, setIsOpen, setContent }) => {
             <img src={AddBtn} alt='add' width={20} />
             <span className='ml-1 leading-5 text-blue-400'>テーマを追加</span>
           </button>
-          <input
-            type='text'
-            className={
-              (!canAddTheme ? "hidden" : "") +
-              " mt-2 border-2 border-blue-100 rounded-md p-1 outline-none focus:border-blue-400"
-            }
-            placeholder='テーマ名を入力'
-            ref={inputRef}
-            onKeyDown={(e) => addTheme(e)}
-          />
+          <div className='mt-2 flex flex-col gap-1'>
+            <input
+              type='text'
+              className={
+                (!canAddTheme ? "hidden" : "") +
+                " border-2 border-blue-100 rounded-md p-1 outline-none focus:border-blue-400"
+              }
+              placeholder='テーマ名を入力'
+              ref={inputRef}
+            />
+            <div className={!canAddTheme ? "hidden" : ""}>
+              <button
+                className='bg-blue-500 text-white px-2 py-1 rounded-md shadow-md'
+                onClick={addTheme}
+              >
+                OK
+              </button>
+            </div>
+          </div>
         </div>
         <ul className='flex flex-col gap-5 mt-5'>
           {themes.map((theme) => {

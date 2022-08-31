@@ -75,7 +75,7 @@ const AddContent = ({ setContent }) => {
         <h2 className='font-bold'>
           <span className='mr-2'>テーマ:</span>
           <select
-            className='outline-none w-56 bg-blue-100 p-1 rounded-md'
+            className='outline-none w-full bg-blue-100 p-1 rounded-md'
             defaultValue={themeToAddContext.id}
             onChange={(e) =>
               setThemeToAddContext({
@@ -98,7 +98,7 @@ const AddContent = ({ setContent }) => {
           <input
             type='text'
             placeholder='タイトル'
-            className='outline-none bg-blue-100 rounded-md p-1 border-2 border-blue-100 focus:border-blue-200 w-52'
+            className='outline-none bg-blue-100 rounded-md p-1 border-2 border-blue-100 focus:border-blue-200 w-full'
             onChange={(e) => setTitle(e.target.value)}
           />
         </p>
@@ -107,7 +107,7 @@ const AddContent = ({ setContent }) => {
           <input
             type='text'
             placeholder='読み'
-            className='outline-none bg-blue-100 rounded-md p-1 border-2 border-blue-100 focus:border-blue-200 w-60'
+            className='outline-none bg-blue-100 rounded-md p-1 border-2 border-blue-100 focus:border-blue-200 w-full'
             onChange={(e) => setReading(e.target.value)}
           />
         </p>
